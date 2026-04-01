@@ -1,24 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Weather App
 
-## Getting Started
+A Next.js weather application demonstrating server-side prefetching with TanStack Query.
 
-First, run the development server:
+## Installation & Setup
 
+1. **Install dependencies:**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Backend repository used: https://github.com/ZacLR1o/MyWeatherApp 
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **Configure environment variables:**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file in the root directory:
+```bash
+BASE_URL=http://localhost:5119
+```
+
+3. **Run the development server:**
+```bash
+pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view the app.
+
+## Architecture: TanStack Query with Server-Side Prefetching
+
+This app uses a hybrid approach combining Next.js Server Components with TanStack Query for optimal performance:
+
+### How It Works
+
+1. **Server Component** (`WeatherCarousel.tsx`):
+   - Creates a QueryClient on the server
+   - Prefetches weather data using `prefetchQuery` before rendering
+   - Dehydrates the cache and passes it to the client via `HydrationBoundary`
+   - Data is included in the initial HTML (SSR)
+
+2. **Client Component** (`WeatherCarouselClient.tsx`):
+   - Uses `useWeather()` hook from TanStack Query
+   - Receives prefetched data instantly (no loading state on first render)
+   - Retains full client-side features: refetching, caching, mutations
+
+3. **Providers Setup** (`components/providers.tsx`):
+   - Client Component wrapping the app with `QueryClientProvider`
+   - Configures default query options (staleTime, retry, etc.)
+
+### Benefits
+
+- ✅ Fast initial page load (server-rendered)
+- ✅ No loading flash on first render
+- ✅ Full TanStack Query features (caching, background refetch, invalidation)
+- ✅ SEO-friendly content
+
+### Key Files
+
+- `lib/api/weather.ts` - Axios API call
+- `lib/queries/weather.query.ts` - TanStack Query hook definition
+- `components/Weather/WeatherCarousel.tsx` - Server component with prefetch
+- `components/Weather/WeatherCarouselClient.tsx` - Client component using useQuery
 
 ## Learn More
 
