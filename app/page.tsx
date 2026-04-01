@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import WeatherCarousel from "@/components/Weather/WeatherCarousel";
 import Image from "next/image";
 
 export default function Home() {
@@ -35,16 +35,7 @@ export default function Home() {
             </a>{" "}
             center.
           </p>
-          
-          <Carousel>
-            <CarouselContent>
-              <CarouselItem>...</CarouselItem>
-              <CarouselItem>...</CarouselItem>
-              <CarouselItem>...</CarouselItem>
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+          <WeatherCarousel />
         </div>
         <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
           <Button>Press me</Button>
