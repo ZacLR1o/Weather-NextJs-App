@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Image from "next/image";
 
 export default function Home() {
@@ -33,8 +35,19 @@ export default function Home() {
             </a>{" "}
             center.
           </p>
+          
+          <Carousel>
+            <CarouselContent>
+              <CarouselItem>...</CarouselItem>
+              <CarouselItem>...</CarouselItem>
+              <CarouselItem>...</CarouselItem>
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </div>
         <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+          <Button>Press me</Button>
           <a
             className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
