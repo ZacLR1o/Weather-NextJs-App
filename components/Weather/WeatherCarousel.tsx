@@ -1,19 +1,6 @@
 import { Suspense } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
-
-
-// Simulate fetching data from a server with delay
-async function getWeatherData() {
-  // Simulate a 3-second delay
-  await new Promise(resolve => setTimeout(resolve, 3000));
-  
-  return [
-    { id: 1, city: "New York", temp: "72°F", condition: "Sunny" },
-    { id: 2, city: "London", temp: "58°F", condition: "Cloudy" },
-    { id: 3, city: "Tokyo", temp: "68°F", condition: "Rainy" },
-    { id: 4, city: "Sydney", temp: "75°F", condition: "Clear" },
-  ];
-}
+import { getWeather } from "@/lib/api/weather";
 
 // Separate async component that fetches and renders the carousel
 export default async function ViewMiddleware() {  
@@ -25,8 +12,8 @@ export default async function ViewMiddleware() {
 }
 
 async function WeatherCarousel() {
-  const weatherData = await getWeatherData(); // simulating data fetch; without suspending this component, it would block the entire page until data is ready
-
+  // const weatherData = await getWeatherData(); // simulating data fetch; without suspending this component, it would block the entire page until data is ready
+  const weatherData = await getWeather();
   return (
     <Carousel className="w-full max-w-xs">
       <CarouselContent>
@@ -35,9 +22,9 @@ async function WeatherCarousel() {
             <div className="p-1">
               <div className="flex aspect-square items-center justify-center p-6 border rounded-lg">
                 <div className="text-center">
-                  <h3 className="text-2xl font-bold mb-2">{weather.city}</h3>
-                  <p className="text-4xl font-semibold mb-1">{weather.temp}</p>
-                  <p className="text-sm text-muted-foreground">{weather.condition}</p>
+                  <h3 className="text-2xl font-bold mb-2">{weather.summary}</h3>
+                  <p className="text-4xl font-semibold mb-1">{weather.temperatureC}</p>
+                  <p className="text-sm text-muted-foreground">{weather.date}</p>
                 </div>
               </div>
             </div>
