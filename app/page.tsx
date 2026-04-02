@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
 import WeatherCarousel from "@/components/Weather/WeatherCarousel";
+import WeatherCarouselSkeleton from "@/components/Weather/WeatherCarouselSkeleton";
+import WeatherModalButton from "@/components/WeatherModal/WeatherButton";
 import Image from "next/image";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -35,7 +38,11 @@ export default function Home() {
             </a>{" "}
             center.
           </p>
-          <WeatherCarousel />
+          <Suspense fallback={<WeatherCarouselSkeleton />}>
+            <WeatherCarousel />
+          </Suspense>
+          
+          <WeatherModalButton />
         </div>
         <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
           <Button>Press me</Button>
